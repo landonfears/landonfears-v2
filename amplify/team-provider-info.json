@@ -1,0 +1,14 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "landonfears-master-20190604202456-authRole",
+            "UnauthRoleArn": "arn:aws:iam::247890260523:role/landonfears-master-20190604202456-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::247890260523:role/landonfears-master-20190604202456-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "landonfears-master-20190604202456-deployment",
+            "UnauthRoleName": "landonfears-master-20190604202456-unauthRole",
+            "StackName": "landonfears-master-20190604202456",
+            "StackId": "arn:aws:cloudformation:us-east-1:247890260523:stack/landonfears-master-20190604202456/589bfc10-8728-11e9-8228-0afcd132dcac"
+        }
+    }
+}
