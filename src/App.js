@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './landon.png';
+import logo from './landon-pad.png';
 import './App.css';
 
 function App() {
@@ -17,8 +17,8 @@ function App() {
         <svg height="0" xmlns="http://www.w3.org/2000/svg">
           <filter id="drop-shadow">
             <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
-            <feOffset dx="12" dy="12" result="offsetblur"/>
-            <feFlood flood-color="rgba(0,0,0,0.2)"/>
+            <feOffset dx="1" dy="1" result="offsetblur"/>
+            <feFlood flood-color="rgba(0,0,0,0.6)"/>
             <feComposite in2="offsetblur" operator="in"/>
             <feMerge>
               <feMergeNode/>
