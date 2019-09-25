@@ -649,6 +649,561 @@ function numSpaces(boat, quadrant, type) {
   return count;
 }
 
+function pwd(S) {
+  let pwds = S.split(" ");
+  //console.log('pwds', pwds);
+  let max = 0;
+  var i;
+
+  let letterNumber = /^[0-9a-zA-Z]+$/;
+  let letter = /^[a-zA-Z]+$/;
+  let number = /^[0-9]+$/;
+
+  pwds.map(p => {
+    let lcount = 0;
+    let ncount = 0;
+    let valid = true;
+    for (i = 0; i < p.length; i++) {
+      if (p[i].match(letterNumber)) {
+        if (p[i].match(letter)) {
+          lcount += 1;
+        } else if (p[i].match(number)) {
+          ncount += 1;
+        }
+
+      } else {
+        valid = false;
+        break;
+      }
+      
+    }
+    if (valid && lcount % 2 === 0 && ncount % 2 === 1) {
+      if (max < p.length) {
+        max = p.length;
+      }
+    } else {
+      valid = false;
+    }
+    //console.log('word', p, lcount, ncount, valid, max);
+  })
+  return max || -1;
+}
+
+function water(A) {
+  // max, min, maxdepth, 
+
+  // when value drops, have half a bowl and compute min
+  // when value increases with half a bowl, we have depth, compute max
+  // depth === MAX of increased height - min OR increased height - old max
+
+  let min = 0;
+  let max = 0;
+  let valid = false;
+  let maxdepth = 0;
+  console.log('start', A);
+  // States - 1) dropping (new min), 2) rising (new max)
+
+  A.map((h, i) => {
+    if (i === 0) {
+      max = h;
+      min = 100000001;
+    } else {
+      if (h < A[i - 1]) { // Downward
+        if (!valid) {
+          valid = true;
+        }
+        if (h < min) {
+          min = h;
+        }
+      }
+      if (h > A[i - 1]) { // Upward
+        if (valid) {
+          if (h > max) {
+            maxdepth = Math.max(maxdepth, max - min);
+          } else {
+            maxdepth = Math.max(maxdepth, h - min);
+          }
+          //maxdepth = Math.max(maxdepth, Math.min(max, h));
+        }
+      }
+      if (h > max) {
+        max = h;
+        min = 100000001;
+        valid = false;
+      }
+    }
+    console.log(`i: ${i}, h: ${h}, max: ${max}, min: ${min}, maxDepth: ${maxdepth}, valid: ${valid}`);
+  });
+  //console.log('all vals', maxdepth)
+  return maxdepth;
+}
+
+function slalom(A) {
+  let bound = Math.max(...A) + 1;
+  let multiverse = [];
+
+  A.map(point => {
+    multiverse.push(bound * 2 + point);
+    multiverse.push(bound * 2 - point);
+    multiverse.push(point);
+  })
+
+  console.log('SEQ', A);
+  return lisub(A);
+  //console.log('bound', A, multiverse);
+
+    // for point in A:
+    //     # The point in the double-mirror universe.
+    //     multiverse.append(bound * 2 + point)
+    //     # The point in the mirror universe.
+    //     multiverse.append(bound * 2 - point)
+    //     # The point in the original universe.
+    //     multiverse.append(point)
+    // return LongestIncreasingSubsequence(multiverse)
+  //console.log('vals', A, multiverse);
+}
+
+function lisub(seq){
+  var i;
+  let smallest_end_value = [];
+  for (i = 0; i < seq.length + 1; i++) {
+    smallest_end_value[i] = null;
+  }
+  smallest_end_value[0] = -1;
+  let lic_length = 0;
+
+  for (i = 0; i < seq.length; i++) {
+    let lower = 0;
+    let upper = lic_length;
+    console.log(`FOR LOOP: i: ${i}, lic_length: ${lic_length}, seq[i]: ${seq[i]}, sev: ${smallest_end_value}, lower: ${lower}, upper: ${upper}, SEQ: ${seq}`);
+    while(lower <= upper) {
+      let mid = Math.floor((upper + lower) / 2);
+      if (seq[i] < smallest_end_value[mid]) {
+        upper = mid - 1;
+      } else if (seq[i] > smallest_end_value[mid]) {
+        lower = mid + 1;
+      } else {
+        console.log('Should never happen: the elements of A are all distinct');
+      }
+      console.log(`WHILE LOOP: lower: ${lower}, mid: ${mid}, upper: ${upper}`);
+    }
+
+    if (smallest_end_value[lower] === null) {
+      smallest_end_value[lower] = seq[i];
+      lic_length += 1;
+      console.log(`smallest end was null, now ${smallest_end_value[lower]}`)
+    } else {
+      smallest_end_value[lower] = Math.min(smallest_end_value[lower], seq[i]);
+      console.log(`smallest end now ${smallest_end_value[lower]}`)
+    }
+  }
+  console.log(`lic_length: ${lic_length}`);
+  return lic_length;
+}
+
+function damax(numbers) {
+  return Math.max(...numbers);
+}
+
+function branch(arr) {
+  // Skip first element, then get sum of left and right
+  let lsum = 0;
+  let rsum = 0;
+  let side = 0;
+  let iter = 2;
+  let count = 0;
+
+  for (var i = 1; i < arr.length; i++) {
+    if (side === 0) {
+      lsum += (arr[i] < 0 ? 0 : arr[i]);
+    } else {
+      rsum += (arr[i] < 0 ? 0 : arr[i]);
+    }
+
+    count++;
+    if (count === iter) {
+      iter = iter * 2;
+      count = 0;
+    }
+    if (count >= iter / 2) {
+      side = 1;
+    } else {
+      side = 0;
+    }
+  }
+  
+  console.log('sums', lsum, rsum);
+  if (lsum > rsum) {
+    return 'Left';
+  } else if (lsum < rsum) {
+    return 'Right';
+  } else {
+    return '';
+  }
+}
+
+function isomorphic(s, t){
+  let hash = {};
+  if (s.length !== t.length) {
+    return false;
+  }
+
+  for (var i = 0; i < s.length; i++) {
+    if (hash[s[i]] && hash[s[i]] !== t[i]) {
+      return false;
+    }
+    hash[s[i]] = t[i];
+  }
+  return true;
+}
+
+function stock(prices){
+  //[6,0,-1,10] 
+
+  /*
+    [-6, -7, 4]
+        [-1,10]
+           [11]
+  */
+  // array for when bought and sold
+  if (prices.length === 0) {
+    return 0;
+  }
+
+  // var i, j;
+  // let maxProfit = null;
+  // for (i = 0; i < prices.length - 1; i++) {
+  //   for (j = i + 1; j < prices.length; j++) {
+  //     let profit = prices[j] - prices[i];
+  //     if (profit > maxProfit || maxProfit === null) {
+  //       maxProfit = profit;
+  //     }
+  //   }
+  // }
+  // return maxProfit;
+  // Maximum difference found so far 
+  let max_diff = prices[1] - prices[0]; 
+  console.log('prices', prices);
+  // Minimum number visited so far  
+  let min_element = prices[0]; 
+  for(var i = 1; i < prices.length; i++) {     
+    
+    console.log(`max_diff: ${max_diff}, min_element: ${min_element}, prices[i]: ${prices[i]}`)   
+    if (prices[i] - min_element > max_diff) {
+      max_diff = prices[i] - min_element; 
+    }                            
+    if (prices[i] < min_element) {
+      min_element = prices[i];
+    }              
+  } 
+
+  console.log(`max_diff: ${max_diff}, min_element: ${min_element}`)   
+    
+  return max_diff; 
+}
+
+function stock2(prices) {
+
+  if (prices.length === 0) {
+    return 0;
+  }
+
+  // Maximum difference found so far 
+  let max_diff = prices[1] - prices[0]; 
+       
+  // Minimum number visited so far  
+  let min_element = prices[0]; 
+  for(var i = 1; i < prices.length; i++) {      
+    if (prices[i] - min_element > max_diff) {
+      max_diff = prices[i] - min_element; 
+    }                            
+    if (prices[i] < min_element) {
+      min_element = prices[i];
+    }                
+  } 
+    
+  return max_diff; 
+}
+
+function kth(numbers, k) {
+  sort(numbers, true);
+  return numbers[k - 1];
+
+  // let max = Math.max(...numbers);
+  // let count = [];
+  // var i;
+  // for (i = 0; i < max + 1; i++) {
+  //   count[i] = 0;
+  // }
+
+  // for (i = 0; i < numbers.length; i++) {
+  //   count[numbers[i]] += 1;
+  // }
+
+  // let track = 0;
+  // for (i = count.length - 1; i > 0; i--) {
+  //   track += count[i];
+  //   if (track >= k) {
+  //     return i;
+  //   }
+  // }
+  // console.log('max', max, count);
+}
+
+// "nndfddf"
+// 1,2,1,1,2,2,2
+
+function norepeat(s) {
+
+  // Return 0 if no string given
+  if (!s.length) {
+    return 0;
+  }
+
+  let hash = {}; // hash characters
+  let longestLength = 0; // longest substring length (return)
+  let substringLength = 0; // current substring length
+
+  let i = 0;
+  while (i < s.length) {
+    if (hash[s[i]]) {
+      // Update longestLength if this substring is longer
+      if (substringLength > longestLength) {
+        longestLength = substringLength;
+      }
+      // 
+      i = hash[s[i]];
+      hash = {};
+      substringLength = 0;
+    } else {
+      // Hash character with next index so we can return if duplicate is found
+      hash[s[i]] = i + 1;
+
+      substringLength += 1;
+      i += 1;
+    }
+  }
+  return longestLength;
+}
+
+function prefix(strings) {
+  if (!strings.length) {
+    return "";
+  }
+  let sortedStrings = strings.sort();
+  let firstString = sortedStrings[0];
+
+  let lastString = sortedStrings[sortedStrings.length - 1];
+  let firstStringLength = firstString.length;
+    
+  let i = 0;
+  // Compare first and last strings since they would have the least prefix in common when sorted
+  while(
+    i < firstStringLength && 
+    firstString.charAt(i) === lastString.charAt(i)
+  ) {
+    i++;
+  }
+  console.log('sorted', sortedStrings);
+  // return substring with i first characters in common
+  return firstString.substring(0, i);
+
+  // // Set "i" incrementer to 0
+  // var i= 0;
+  
+  // // while "i" is less than the length of the first array element AND
+  // // the first array element character position matches the last array character position
+  // // increment "i" by one
+  // while(i < arrFirstElemLength && arrFirstElem.charAt(i) === arrLastElem.charAt(i)) {
+  //   i++;
+  // }
+  
+  // // Console log the substring of the first element of the array starting with
+  // // index zero and going all the way to just below index "i"
+  // console.log(arrFirstElem.substring(0, i));
+}
+
+function jumps(n) {
+  let possibleJumps = [];
+
+  for (var i = 0; i < n; i++) {
+    if (i < 3) {
+      possibleJumps[i] = 1;
+    } else {
+      possibleJumps[i] = 0;
+    }
+  }
+
+  for (i = 1; i < n; i++) {
+    let p1 = possibleJumps[i-1];
+    let p2 = i-2 >= 0 ? possibleJumps[i-2] : 0;
+    let p3 =  i-3 >= 0 ? possibleJumps[i-3] : 0;
+    possibleJumps[i] += p1 + p2 + p3;
+    console.log('pjumps', possibleJumps);
+  }
+  return possibleJumps[possibleJumps.length - 1];
+}
+
+function inversion(A) {
+  let num = 0;;
+  var sorted = A.slice().sort(function(a,b){return a-b})
+  var ranks = A.slice().map(function(v){ return sorted.indexOf(v) });
+  let freq = [];
+  for (var i = 0; i < A.length; i++) {
+    freq[i] = 0;
+  }
+  console.log('sorted rank', A, sorted, ranks, freq);
+
+  for (i = 0; i < A.length; i++) {
+    // Increment everything before with 1
+    let rank = ranks[i];
+    num += freq[ranks[i]];
+    console.log('tmp freq', freq, A[i], num);
+    while (rank > 0) {
+      freq[rank - 1] += 1;
+      rank--;
+      
+    }
+  }
+  console.log('new freq', freq, num);
+  return num;
+
+}
+
+function treeHeight(T) {
+  // if (T === null) {
+  //   return null;
+  // }
+  // if (T.l === null && T.r === null) {
+  //   console.log("end of tree", T.x);
+  //   return 0;
+  // }
+  // return 1 + treeHeight(T.l) + treeHeight(T.r);
+  // console.log('Tree', T);
+  // return 7;
+  return branchHeight(T, 0);
+}
+
+function branchHeight(T, height) {
+  if (T === null) {
+    return null;
+  }
+  if (T.l === null && T.r === null) {
+    //console.log("end of tree", T.x);
+    return height;
+  }
+  return Math.max(branchHeight(T.l, height + 1), branchHeight(T.r, height + 1));
+  //return branchHeight(T.l, height + 1);
+}
+
+function tape(A) {
+  let sum = A.reduce((total, num) => total + num);
+  //console.log('sum', sum);
+
+  let min = 2001;
+  let tmp = 0;
+  for (var i = 0; i < A.length; i++) {
+    if (i > 0) {
+      let diff = Math.abs(tmp - (sum - tmp));
+      if (diff < min) {
+        min = diff;
+      }
+    }
+    tmp += A[i];
+  }
+  return min;
+}
+
+function cars(A) {
+  let west = 0;
+  let poss = 0;
+  for (var i = A.length - 1; i >= 0; i--) {
+    if (A[i]) {
+      west += 1;
+    } else {
+      poss += west;
+      if (poss > 1000000000) {
+        return -1;
+      }
+    }
+  }
+  return poss;
+}
+
+function dna(S, P, Q) {
+  let minArr = [];
+  let impact = [];
+  let indicies = {
+    A: [],
+    C: [],
+    G: [],
+    T: []
+  };
+  var i, j;
+  for (i = 0; i < S.length; i++) {
+    if (S[i] === 'A') {
+      impact.push(1);
+      indicies.A.push(i);
+    } else if (S[i] === 'C') {
+      impact.push(2);
+      indicies.C.push(i);
+    } else if (S[i] === 'G') {
+      impact.push(3);
+      indicies.G.push(i);
+    } else if (S[i] === 'T') {
+      impact.push(4);
+      indicies.T.push(i);
+    }
+  }
+  for (i = 0; i < P.length; i++) {
+    let found = false;
+    for (j = 0; j < indicies.A.length; j++) {
+      if (indicies.A[j] >= P[i] && indicies.A[j] <= Q[i]) {
+        minArr.push(1);
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      for (j = 0; j < indicies.C.length; j++) {
+        if (indicies.C[j] >= P[i] && indicies.C[j] <= Q[i]) {
+          minArr.push(2);
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
+      for (j = 0; j < indicies.G.length; j++) {
+        if (indicies.G[j] >= P[i] && indicies.G[j] <= Q[i]) {
+          minArr.push(3);
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
+      minArr.push(4);
+      found = true;
+    }
+    //console.log('impact', minArr);
+
+    // for (j = 0; j < indicies.T.length; i++) {
+    //   if (indicies.T[j] >= P[i] && indicies.T[j] <= Q[i]) {
+    //     minArr.push(4);
+    //     found = true;
+    //   }
+    // }
+    // let min = P[i];
+    // let max = Q[i] + 1;
+    // let sub = impact.slice(min, max);
+    // // return min value
+    // minArr.push(Math.min(...sub));
+  }
+  //console.log('impact', S, impact, minArr, indicies);
+  return minArr;
+}
+
 function sort(arr, desc) {
   return arr.sort((a, b) => desc ? b - a : a - b);
 }
@@ -684,6 +1239,13 @@ function indexOfMax(arr) {
   return maxIndex;
 }
 
+function sandbox() {
+  for (var i = 0; i < 5; i++) {
+    setTimeout(function() { console.log(i); }, i * 1000 );
+  }
+
+}
+
 export default {
   solution,
   solution2,
@@ -699,7 +1261,24 @@ export default {
   minseq,
   minabs,
   minnope,
-  dwarf
+  dwarf,
+  pwd,
+  water,
+  slalom,
+  damax,
+  branch,
+  isomorphic,
+  stock,
+  kth,
+  norepeat,
+  prefix,
+  jumps,
+  inversion,
+  treeHeight,
+  tape,
+  cars,
+  dna,
+  sandbox
 };
 
 

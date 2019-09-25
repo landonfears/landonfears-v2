@@ -128,38 +128,38 @@ import Master from './practice/master';
 //   //expect(result).toBe(17);
 // });
 
-it('rotate array', () => {
-  //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
-  const res1 = Master.rotate([3], 3);
-  console.log('rotated array', res1);
-})
+// it('rotate array', () => {
+//   //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
+//   const res1 = Master.rotate([3], 3);
+//   console.log('rotated array', res1);
+// })
 
-it('frogger', () => {
-  //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
-  const res1 = Master.frogger(7, 1000000000, 2);
-  console.log('max jumps', res1);
-})
+// it('frogger', () => {
+//   //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
+//   const res1 = Master.frogger(7, 1000000000, 2);
+//   console.log('max jumps', res1);
+// })
 
-it('missing', () => {
-  //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
-  const res1 = Master.missing([]);
-  console.log('missing', res1);
-})
+// it('missing', () => {
+//   //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
+//   const res1 = Master.missing([]);
+//   console.log('missing', res1);
+// })
 
-it('flip rows', () => {
-  //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
-  const res1 = Master.fliprows([[0, 0, 0, 0], [0, 1, 0, 0], [1, 0, 1, 1]]);
-  const res2 = Master.fliprows([[0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0]]);
-  console.log('flip rows', res1, res2);
-})
+// it('flip rows', () => {
+//   //const res1 = Master.rotate([3, 8, 9, 7, 6], 3);
+//   const res1 = Master.fliprows([[0, 0, 0, 0], [0, 1, 0, 0], [1, 0, 1, 1]]);
+//   const res2 = Master.fliprows([[0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0]]);
+//   console.log('flip rows', res1, res2);
+// })
 
-it('contribution', () => {
-  const res1 = Master.contribution([4,2,1], [2,5,3], 2);
-  const res2 = Master.contribution([7,1,4,4], [5,3,4,3], 2);
-  const res3 = Master.contribution([5,5,5], [5,5,5], 1);
-  const res4 = Master.contribution([1], [3], 0);
-  console.log('flip rows', res1, res2, res3, res4);
-})
+// it('contribution', () => {
+//   const res1 = Master.contribution([4,2,1], [2,5,3], 2);
+//   const res2 = Master.contribution([7,1,4,4], [5,3,4,3], 2);
+//   const res3 = Master.contribution([5,5,5], [5,5,5], 1);
+//   const res4 = Master.contribution([1], [3], 0);
+//   console.log('flip rows', res1, res2, res3, res4);
+// })
 
 // it('min seq', () => {
 //   const res1 = Master.minseq([1,5,2,-2]);
@@ -177,18 +177,184 @@ it('contribution', () => {
 //   console.log('min sequence', res1, res2, res3, res4);
 // })
 
-it('min nope', () => {
-  const res1 = Master.minnope([1,3,6,4,1,2]);
-  const res2 = Master.minnope([1,2,3]);
-  const res3 = Master.minnope([-1,-3]);
-  const res4 = Master.minnope([1]);
-  console.log('min nope', res1, res2, res3, res4);
-})
+// it('min nope', () => {
+//   const res1 = Master.minnope([1,3,6,4,1,2]);
+//   const res2 = Master.minnope([1,2,3]);
+//   const res3 = Master.minnope([-1,-3]);
+//   const res4 = Master.minnope([1]);
+//   console.log('min nope', res1, res2, res3, res4);
+// })
 
-it('dwarf', () => {
-  const res1 = Master.dwarf(4, "1B 1C 4B 1D 2A", "3B 2D");
-  const res2 = Master.dwarf(2, '1B 2A', '1A 2B');
+// it('dwarf', () => {
+//   const res1 = Master.dwarf(4, "1B 1C 4B 1D 2A", "3B 2D");
+//   const res2 = Master.dwarf(2, '1B 2A', '1A 2B');
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('dwarf', res1, res2);
+// })
+
+// it('pwd', () => {
+//   const res1 = Master.pwd("test 5 a0A pass007 ?xy1");
+//   const res2 = Master.pwd('desc and we will do it!');
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('pwd', res1, res2);
+// })
+
+// it('water', () => {
+//   const res1 = Master.water([1,3,2,1,2,1,5,3,3,4,2]);
+//   const res2 = Master.water([5,8]);
+//   const res3 = Master.water([1, 9, 8, 7, 4, 8, 7, 10, 31, 2]);
+//   const res4 = Master.water([2, 1, 3]);
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('water', res1, res2, res3, res4);
+// })
+
+it('slalom', () => {
+  // const res1 = Master.slalom([15,13,5,7,4,10,12,8,2,11,6,9,3]);
+  // const res2 = Master.slalom([1,5]);
   // const res3 = Master.minnope([-1,-3]);
   // const res4 = Master.minnope([1]);
-  console.log('dwarf', res1, res2);
+  //console.log('slalom', res1, res2);
+})
+
+// it('max', () => {
+//   const res1 = Master.damax([]);
+//   const res2 = Master.damax([7,2,6,3]);
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('max', res1, res2);
+// })
+
+// it('branch', () => {
+//   const res1 = Master.branch([]);
+//   const res2 = Master.branch([3,6,2,9,-1,10]);
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('branch', res1, res2);
+// })
+
+// it('isomorphic', () => {
+//   const res1 = Master.isomorphic('papa', 'kiki');
+//   const res2 = Master.isomorphic('egg', 'add');
+//   const res3 = Master.isomorphic('foo', 'bar');
+//   const res4 = Master.isomorphic('', '');
+//   console.log('isomorphic', res1, res2, res3, res4);
+// })
+
+// it('stock', () => {
+//   const res1 = Master.stock([6,0,-1,10]);
+//   const res2 = Master.stock([13,10,8,4,10]);
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('stock', res1, res2);
+// })
+
+// it('kth', () => {
+//   const res1 = Master.kth([1,4,3,4,2,5], 3);
+//   const res2 = Master.kth([0,-1,2], 2);
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('kth', res1, res2);
+// })
+
+// it('norepeat', () => {
+//   const res1 = Master.norepeat("nndfddf");
+//   // const res3 = Master.minnope([-1,-3]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('norepeat', res1);
+// })
+
+// it('prefix', () => {
+//   const res1 = Master.prefix(["abcdef","abcghi","abcabc"]);
+//   const res2 = Master.prefix(["abcdef","adegh","ab", "x"]);
+//   const res3 = Master.prefix([]);
+//   // const res4 = Master.minnope([1]);
+//   console.log('prefix', res1, res2, res3);
+// })
+
+// it('jumps', () => {
+//   const res1 = Master.jumps(3);
+//   const res2 = Master.jumps(4);
+//   const res3 = Master.jumps(15);
+//   console.log('jumps', res1, res2, res3);
+// })
+
+// it('inversion', () => {
+//   const res1 = Master.inversion([-1,6,3,5,7,4]);
+//   // const res2 = Master.inversion(4);
+//   // const res3 = Master.inversion(15);
+//   console.log('inversion', res1);
+// })
+
+// it('tree height', () => {
+//   const res1 = Master.treeHeight({ 
+//     x: 5,
+//     l: { 
+//       x: 3,
+//       l: { 
+//         x: 20, 
+//         l: null, 
+//         r: null 
+//       },
+//       r: { 
+//         x: 21, 
+//         l: null,
+//         r: null 
+//       } 
+//     },
+//     r: { 
+//       x: 10, 
+//       l: { 
+//         x: 1, 
+//         l: null, 
+//         r: null 
+//       }, 
+//       r: null 
+//     } 
+//   });
+//   // const res2 = Master.inversion(4);
+//   // const res3 = Master.inversion(15);
+//   console.log('tree height', res1);
+// })
+
+// it('tape', () => {
+//   const res1 = Master.tape([3,1,2,4,3]);
+//   const res2 = Master.tape([-1000, 1000]);
+//   // const res3 = Master.inversion(15);
+//   console.log('tape', res1, res2);
+// })
+
+// it('cars', () => {
+//   const res1 = Master.cars([0,1,0,1,1]);
+//   const res2 = Master.cars([1,1,0,1]);
+//   // const res3 = Master.inversion(15);
+//   console.log('cars', res1, res2);
+// })
+
+// it('dna', () => {
+//   const res1 = Master.dna("CAGCCTA", [2,5,0], [4,5,6]);
+//   //const res2 = Master.dna([1,1,0,1]);
+//   // const res3 = Master.inversion(15);
+//   console.log('dna', res1);
+// })
+
+it ('sandbox', () => {
+  
+  let n = 918;
+  let p = 0;
+  while (Math.pow(2, p) <= n) {
+    p++;
+  }
+  let b = '';
+  for (var i = p - 1; i >= 0; i--) {
+    if (n && n - Math.pow(2, i) >= 0) {
+      n = n - Math.pow(2, i);
+      b += '1';
+    } else 
+    b += '0';
+  }
+  console.log('p', n, p, b);
+
 })
