@@ -340,21 +340,64 @@ it('slalom', () => {
 //   console.log('dna', res1);
 // })
 
-it ('sandbox', () => {
+// it ('sandbox', () => {
   
-  let n = 918;
-  let p = 0;
-  while (Math.pow(2, p) <= n) {
-    p++;
-  }
-  let b = '';
-  for (var i = p - 1; i >= 0; i--) {
-    if (n && n - Math.pow(2, i) >= 0) {
-      n = n - Math.pow(2, i);
-      b += '1';
-    } else 
-    b += '0';
-  }
-  console.log('p', n, p, b);
+//   let n = 918;
+//   let p = 0;
+//   while (Math.pow(2, p) <= n) {
+//     p++;
+//   }
+//   let b = '';
+//   for (var i = p - 1; i >= 0; i--) {
+//     if (n && n - Math.pow(2, i) >= 0) {
+//       n = n - Math.pow(2, i);
+//       b += '1';
+//     } else 
+//     b += '0';
+//   }
+//   console.log('p', n, p, b);
 
-})
+// })
+
+
+it ('sandbox', () => {
+  let sb = Master.sandbox();
+
+  // function c() {
+  //   var b = 5;
+  //   var q = 9;
+
+  //   function d() {
+  //     for (var p = 0; p < b; p++) {
+  //       console.log('p', p);
+  //     }
+  //     // b += 4;
+  //     // console.log('b', b);  
+  //   }
+  //   return d;
+  // }
+
+  // var foo = c();
+  // foo();
+  // //foo();
+
+  var funcs = [];
+  for (var i = 0; i < 3; i++) {
+    // and store them in funcs
+    funcs[i] = function(x) {
+      return function() {
+        console.log("My value: " + x);
+      };
+      // each should log its value.
+      //return function() {
+        
+      //}
+    }(i);
+  }
+  for (var j = 0; j < 3; j++) {
+    // and now let's run each one to see
+    funcs[j]();
+  }
+
+  //console.log('sb return', sb);
+});

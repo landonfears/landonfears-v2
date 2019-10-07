@@ -1240,10 +1240,11 @@ function indexOfMax(arr) {
 }
 
 function sandbox() {
-  for (var i = 0; i < 5; i++) {
-    setTimeout(function() { console.log(i); }, i * 1000 );
+  function m([n, ...o]) {
+    return o.length ? n + m(o) : n;
   }
-
+  const p = m([1,2,3]);
+  console.log(p);
 }
 
 export default {
